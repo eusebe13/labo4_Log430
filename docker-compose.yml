@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   backend1:
@@ -6,55 +5,24 @@ services:
       context: ./backend
     container_name: backend1
     expose:
-      - "8000"
+      - "8001:8000"
     environment:
       - DATABASE_URL=postgresql://user:password@postgres:5432/app_db
     depends_on:
       - postgres
+      - redis
 
   backend2:
     build:
       context: ./backend
     container_name: backend2
     expose:
-      - "8000"
+      - "8002:8000"
     environment:
       - DATABASE_URL=postgresql://user:password@postgres:5432/app_db
     depends_on:
       - postgres
-
-  backend3:
-    build:
-      context: ./backend
-    container_name: backend3
-    expose:
-      - "8000"
-    environment:
-      - DATABASE_URL=postgresql://user:password@postgres:5432/app_db
-    depends_on:
-      - postgres
-
-  backend4:
-    build:
-      context: ./backend
-    container_name: backend4
-    expose:
-      - "8000"
-    environment:
-      - DATABASE_URL=postgresql://user:password@postgres:5432/app_db
-    depends_on:
-      - postgres
-
-  backend5:
-    build:
-      context: ./backend
-    container_name: backend5
-    expose:
-      - "8000"
-    environment:
-      - DATABASE_URL=postgresql://user:password@postgres:5432/app_db
-    depends_on:
-      - postgres
+      - redis
 
   nginx:
     image: nginx:latest
@@ -65,9 +33,6 @@ services:
     depends_on:
       - backend1
       - backend2
-      - backend3
-      - backend4
-      - backend5
 
   frontend:
     build:
@@ -76,7 +41,7 @@ services:
     ports:
       - "5173:5173"
     depends_on:
-      - backend
+      - nginx
 
   postgres:
     image: postgres:15

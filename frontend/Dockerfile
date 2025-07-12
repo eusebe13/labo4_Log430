@@ -7,7 +7,8 @@ COPY package*.json ./
 RUN npm install
 
 COPY . .
-
+ENV VITE_DOCKER_API_URL=http://localhost:8080/api/v1
+# Build the application
 RUN npm run build
 
 # Utilise un serveur statique (serve par exemple)

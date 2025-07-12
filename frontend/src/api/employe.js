@@ -1,13 +1,13 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://localhost:8000/api/v1/employe';
+const BASE_URL = import.meta.env.VITE_DOCKER_API_URL || 'http://localhost:8000/api/v1';
 
 /**
  * Récupère tous les produits disponibles dans tous les magasins.
  */
 export const consulterProduits = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/produits`);
+    const response = await axios.get(`${BASE_URL}/employe/produits`);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la récupération des produits :", error);
@@ -21,7 +21,7 @@ export const consulterProduits = async () => {
  */
 export const consulterProduitsParMagasin = async (magasinId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/magasin/${magasinId}/produits`);
+    const response = await axios.get(`${BASE_URL}/employe/magasin/${magasinId}/produits`);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la récupération des produits du magasin :", error);
@@ -36,7 +36,7 @@ export const consulterProduitsParMagasin = async (magasinId) => {
  */
 export const verifierStock = async (produitId, magasinId) => {
   try {
-    const response = await axios.get(`${BASE_URL}/stock/${produitId}/magasin/${magasinId}`);
+    const response = await axios.get(`${BASE_URL}/employe/stock/${produitId}/magasin/${magasinId}`);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la vérification du stock :", error);
@@ -49,7 +49,7 @@ export const verifierStock = async (produitId, magasinId) => {
  */
 export const consulterStockCentral = async () => {
   try {
-    const response = await axios.get(`${BASE_URL}/stockcentral/produits`);
+    const response = await axios.get(`${BASE_URL}/employe/stockcentral/produits`);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la consultation du stock central :", error);
@@ -64,7 +64,7 @@ export const consulterStockCentral = async () => {
  */
 export const acheterProduits = async (magasinId, produits) => {
   try {
-    const response = await axios.post(`${BASE_URL}/acheter/${magasinId}`, produits);
+    const response = await axios.post(`${BASE_URL}/employe/acheter/${magasinId}`, produits);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de l'achat des produits :", error.response?.data || error);
@@ -80,7 +80,7 @@ export const acheterProduits = async (magasinId, produits) => {
  */
 export const reapprovisionnerMagasin = async (produitId, quantite, magasinId) => {
   try {
-    const response = await axios.post(`${BASE_URL}/reapprovisionner/produit/${produitId}/quantite/${quantite}/magasin/${magasinId}`);
+    const response = await axios.post(`${BASE_URL}/employe/reapprovisionner/produit/${produitId}/quantite/${quantite}/magasin/${magasinId}`);
     return response.data;
   } catch (error) {
     console.error("Erreur lors de la demande de réapprovisionnement :", error.response?.data || error);

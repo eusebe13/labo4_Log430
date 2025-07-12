@@ -8,6 +8,3 @@ scrape_configs:
           - 'backend:8000'
           - 'backend1:8000'
           - 'backend2:8000'
-          - 'backend3:8000'
-          - 'backend4:8000'
-          - 'backend5:8000'
