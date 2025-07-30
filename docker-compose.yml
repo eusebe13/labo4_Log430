@@ -4,7 +4,7 @@ services:
     build:
       context: ./backend
     container_name: backend1
-    expose:
+    ports:
       - "8001:8000"
     environment:
       - DATABASE_URL=postgresql://user:password@postgres:5432/app_db
@@ -16,7 +16,7 @@ services:
     build:
       context: ./backend
     container_name: backend2
-    expose:
+    ports:
       - "8002:8000"
     environment:
       - DATABASE_URL=postgresql://user:password@postgres:5432/app_db
